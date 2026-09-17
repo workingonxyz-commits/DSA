@@ -19,7 +19,7 @@ class Solution {
         }
 
         if (dup == 0) {
-            max = sum;
+            max=Math.max(max,sum);
         }
 
         for (int i = k; i < nums.length; i++) {
