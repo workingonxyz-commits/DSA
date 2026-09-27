@@ -1,30 +1,30 @@
 class Solution {
     public boolean isValid(String s) {
-
-        String str = "";
-
-        for (int i = 0; i < s.length(); i++) {
-
-            char ch = s.charAt(i);
-            if (ch == '(' || ch == '{' || ch == '[') {
-                str = str + ch;
+        Stack<Character> stack=new Stack<>();
+        if(s.length()==0){
+            return true;
+        }
+        if(s.length()==1){
+            return false;
+        }
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='('||s.charAt(i)=='['||s.charAt(i)=='{'){
+                stack.push(s.charAt(i));
+            }
+            else if(s.charAt(i)==')'&& !stack.isEmpty()&&stack.peek()=='('){
+                stack.pop();
+            }
+            else if(s.charAt(i)==']'&& !stack.isEmpty()&&stack.peek()=='['){
+                stack.pop();
+            }
+            else if(s.charAt(i)=='}'&& !stack.isEmpty()&&stack.peek()=='{'){
+                stack.pop();
             }
             else{
-                if (str.length() == 0) {
-                    return false;
-                }
-                char last = str.charAt(str.length() - 1);
-                if ((last == '(' && ch == ')') ||
-                    (last == '{' && ch == '}') ||
-                    (last == '[' && ch == ']')) {
-
-                    str = str.substring(0, str.length() - 1);
-
-                } else {
-                    return false;
-                }
+                return false;
             }
+
         }
-        return str.length() == 0;
+        return stack.isEmpty();
     }
 }
